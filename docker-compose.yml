@@ -1,0 +1,17 @@
+services:
+  app:
+    container_name: unifi-ddns
+    image: registry.gitlab.com/buldezir-projects/unifi-ddns
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.unifi-ddns.rule=Host(`unifi-ddns.vm`)"
+
+networks:
+  traefik:
+    external: true
